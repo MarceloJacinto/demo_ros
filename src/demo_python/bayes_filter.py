@@ -13,7 +13,7 @@ class BayesFilter:
         # TODO
         pass
 
-    def predict(self, dt):
+    def predict(self, dt, u):
         
         # TODO
         print('Predicting')
