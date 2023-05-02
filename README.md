@@ -100,5 +100,5 @@
 
 14. Alternatively, use the launch file (and with it, you can avoid having to launch a roscore manually):
     ```
-    roslaunch demo_python demo_launch.launch
+    roslaunch demo_python example.launch
     ```
