@@ -88,7 +88,7 @@ class DemoNode:
         # Perform some logic with the sensor data received
         my_fancy_formula = self.fake_sensor + 1.0
         
-        # For example, if you were implementing a kalman filter, you could do the following
+        # For example, if you were implementing a bayes filter, you could do the following
         self.bayes_filter.predict(0.03)
         # Update the model of our filter (this is just a placeholder for your algorithm)
         self.bayes_filter.update(2)
