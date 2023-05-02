@@ -1,10 +1,8 @@
 import numpy as np
 
-class Kalman:
+class BayesFilter:
     """
-
-    Please, do me a favor: if you are ever going to implement a kalman filter, at least read this first
-    https://www.kalmanfilter.net/multiExamples.html
+    Do you implementation of the BayesFilter here
     """
 
     def __init__(self):
