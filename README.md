@@ -75,3 +75,30 @@
     ```
     chmod +x demo_node.py
     ```
+    
+10. To compile and index the package by the ROS system, run:
+    ```
+    cd ~/catkin_ws/
+    catkin build
+    ```
+11. Add the following lines to your bashrc file, in order for the system to know that your code exists and can be executed:
+    ```
+    nano ~/.bashrc
+    
+    # Add this line to the .bashrc file and save
+    source $HOME/catkin_ws/devel/setup.bash
+    ```
+12. Source the modified .bashrc file:
+    ```
+    source ~/.bashrc
+    ```
+13. Try to run the node by running:
+    ```
+    rosmaster
+    rosrun demo_python demo_python.py
+    ```
+
+14. Alternatively, use the launch file (and with it, you can avoid having to launch a roscore manually):
+    ```
+    roslaunch demo_python demo_launch.launch
+    ```
