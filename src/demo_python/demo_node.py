@@ -21,7 +21,7 @@ class DemoNode:
         self.sub_fake_sensor_topic = None
         self.pub_demo_topic = None
         
-        # Create the kalman filter object here
+        # Create the bayes filter object here
         self.bayes_filter = BayesFilter()
 
         # Store the data received from a fake sensor
