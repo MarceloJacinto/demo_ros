@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+    <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}]: ${node}: ${message}"/>
+
+    <!-- Load the configuration file -->
+    <rosparam command="load" file="$(find demo_python)/config/config.yaml" />
+
+    <node pkg="demo_python" type="demo_node.py" name="demo_node" respawn="false" output="screen" />
+</launch>

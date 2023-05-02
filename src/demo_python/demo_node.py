@@ -47,7 +47,8 @@ class DemoNode:
         """
 
         # Node frequency of operation
-        self.node_frequency = rospy.get_param('~node_frequency', 30)
+        self.node_frequency = rospy.get_param('node_frequency', 30)
+        rospy.loginfo('Node Frequency: %s', self.node_frequency)
 
     def initialize_subscribers(self):
         """
