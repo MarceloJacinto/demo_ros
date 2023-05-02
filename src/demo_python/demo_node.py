@@ -10,7 +10,7 @@ from demo_python.msg import Points
 
 # Import your custom code to implement your algorithm logic here
 # for example:
-from kalman import Kalman
+from bayes_filter import BayesFilter
 
 class DemoNode:
 
@@ -22,7 +22,7 @@ class DemoNode:
         self.pub_demo_topic = None
         
         # Create the kalman filter object here
-        self.kalman = Kalman()
+        self.bayes_filter = BayesFilter()
 
         # Store the data received from a fake sensor
         self.fake_sensor = 0.0
@@ -89,9 +89,9 @@ class DemoNode:
         my_fancy_formula = self.fake_sensor + 1.0
         
         # For example, if you were implementing a kalman filter, you could do the following
-        self.kalman.predict(0.03)
+        self.bayes_filter.predict(0.03)
         # Update the model of our filter (this is just a placeholder for your algorithm)
-        self.kalman.update(2)
+        self.bayes_filter.update(2)
 
         # Create the message to publish
         msg = Odometry()
