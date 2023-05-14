@@ -1,0 +1,49 @@
+<launch>
+    
+    <param name="use_sim_time" value="true"/>
+    
+    <!-- Change the location to wherever you placed your bag -->
+    <arg name="bag_location" default="/home/marcelo/Desktop/2023-05-12-16-15-52.bag" />
+        
+    <!-- Play your bag (change the directory of your bag) -->
+    <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(arg bag_location)"/>
+    
+    <!-- Publish the transform that is missing in the pioneer -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="" args="0 0 0 0 0 0 1 base_link laser" />
+
+    <!-- Launch gmapping to build the map-->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+      <param name="map_update_interval" value="5.0"/>
+      <param name="maxUrange" value="16.0"/>
+      <param name="sigma" value="0.05"/>
+      <param name="kernelSize" value="1"/>
+      <param name="lstep" value="0.05"/>
+      <param name="astep" value="0.05"/>
+      <param name="iterations" value="5"/>
+      <param name="lsigma" value="0.075"/>
+      <param name="ogain" value="3.0"/>
+      <param name="lskip" value="0"/>
+      <param name="srr" value="0.1"/>
+      <param name="srt" value="0.2"/>
+      <param name="str" value="0.1"/>
+      <param name="stt" value="0.2"/>
+      <param name="linearUpdate" value="1.0"/>
+      <param name="angularUpdate" value="0.5"/>
+      <param name="temporalUpdate" value="3.0"/>
+      <param name="resampleThreshold" value="0.5"/>
+      <param name="particles" value="30"/>
+      <param name="xmin" value="-50.0"/>
+      <param name="ymin" value="-50.0"/>
+      <param name="xmax" value="50.0"/>
+      <param name="ymax" value="50.0"/>
+      <param name="delta" value="0.05"/>
+      <param name="llsamplerange" value="0.01"/>
+      <param name="llsamplestep" value="0.01"/>
+      <param name="lasamplerange" value="0.005"/>
+      <param name="lasamplestep" value="0.005"/>
+    </node>
+    
+    <!-- Launch rviz to show the map -->
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find demo_python)/rviz/mapping.rviz" />
+    
+</launch>
