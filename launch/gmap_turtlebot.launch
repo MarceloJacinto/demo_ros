@@ -1,6 +1,13 @@
 <launch>
     
     <param name="use_sim_time" value="true"/>
+    
+    <!-- Replace the location by wherever you have placed your bag -->
+    <arg name="bag_location" default="/home/marcelo/Desktop/2023-05-12-16-15-52.bag" />
+        
+    <!-- Play your bag (change the directory of your bag) -->
+    <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(arg bag_location)"/>
+    
     <node pkg="tf2_ros" type="static_transform_publisher" name="" args="0 0 0 0 0 0 1 base_footprint base_link" />
     <node pkg="tf2_ros" type="static_transform_publisher" name="" args="0 0 0 0 0 0 1 base_link base_scan" />
 
@@ -34,4 +41,8 @@
       <param name="lasamplerange" value="0.005"/>
       <param name="lasamplestep" value="0.005"/>
     </node>
+    
+    <!-- Launch rviz to show the map -->
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find demo_python)/rviz/mapping.rviz" />
+    
 </launch>
