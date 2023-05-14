@@ -1,0 +1,44 @@
+<launch>
+    
+    <param name="use_sim_time" value="true"/>
+    
+    <!-- Change to wherever you have saved your map and bag -->
+    <arg name="map_location" default="/home/marcelo/Desktop/map" />
+    <arg name="bag_location" default="/home/marcelo/Desktop/turtlebot.bag" />
+    
+    <!-- If you know where your robot starts in the map, then change these values, such that amcl converges faster -->
+    <arg name="initial_x" default="0.0" />
+    <arg name="initial_y" default="0.0" />
+    <arg name="initial_orientation" default="0.0" />
+        
+    <!-- Play your bag (change the directory of your bag) -->
+    <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(arg bag_location)"/>
+    
+    <!-- Publish the transform that is missing in the pioneer -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="" args="0 0 0 0 0 0 1 base_footprint base_link" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="" args="0 0 0 0 0 0 1 base_link base_scan" />
+    
+    <!-- Place map frame at odometry frame -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom"/>
+    
+    <!-- Run map server to load the map file -->
+    <node pkg="map_server" type="map_server" name="map_server" output="screen" args="$(arg map_location).yaml" />
+    
+    <!-- Load AMCL for obtaining a good localization of the robot -->
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+      <param name="odom_frame_id" value="odom"/>
+      <param name="odom_model_type" value="diff-corrected"/>
+      <param name="base_frame_id" value="base_link"/>
+      <param name="update_min_d" value="0.1"/>
+      <param name="update_min_a" value="0.2"/>
+      <param name="min_particles" value="500"/>
+      <param name="max_particles" value="5000"/>
+      <param name="initial_pose_x" value="$(arg initial_x)"/>
+      <param name="initial_pose_y" value="$(arg initial_y)"/>
+      <param name="initial_pose_a" value="$(arg initial_orientation)" />
+    </node>
+    
+    <!-- Launch rviz to show the map -->
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find demo_python)/rviz/amcl_turtlebot.rviz" />
+    
+</launch>
