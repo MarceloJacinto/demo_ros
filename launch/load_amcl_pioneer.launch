@@ -38,6 +38,6 @@
     </node>
     
     <!-- Launch rviz to show the map -->
-    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find demo_python)/rviz/amcl.rviz" />
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find demo_python)/rviz/amcl_pioneer.rviz" />
     
 </launch>
