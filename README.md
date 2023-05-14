@@ -24,6 +24,10 @@
     ```
     sudo apt install ros-noetic-teleop-twist-keyboard
     ```
+7. Install other dependencies that you might need in your project
+    ```
+    sudo apt install ros-noetic-gmapping ros-noetic-amcl ros-noetic-map-server
+    ```
 
 # [Creating your ROS package](http://wiki.ros.org/ROS/Tutorials/CreatingPackage)
 
