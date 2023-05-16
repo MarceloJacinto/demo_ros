@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 This node is a work-around that will read in a camera calibration .yaml
 file (as created by the cameracalibrator.py in the camera_calibration pkg),
