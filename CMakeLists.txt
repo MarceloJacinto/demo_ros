@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   nav_msgs
+  sensor_msgs
 
   # For generating the messages
   message_generation
@@ -44,6 +45,7 @@ catkin_package(
   rospy 
   std_msgs
   nav_msgs
+  sensor_msgs
   message_runtime
 )
 

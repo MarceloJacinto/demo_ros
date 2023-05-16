@@ -10,6 +10,7 @@
   <depend>rospy</depend>
   <depend>std_msgs</depend>
   <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
   
   <!-- Needed for generating messages -->
   <depend>message_runtime</depend>

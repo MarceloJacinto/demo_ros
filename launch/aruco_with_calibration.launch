@@ -1,0 +1,45 @@
+<!-- Run the aruco_detect node -->
+<launch>
+	
+  <param name="use_sim_time" value="true"/>
+    
+  <!-- Configurations for the bag, camera input, calibration file location -->
+  <arg name="bag_location" default="/home/marcelojacinto/Desktop/calibration_turtlebot.bag" />
+  <arg name="calibration_file" default="/home/marcelojacinto/catkin_ws/src/demo_ros/camera_calibration/ost.yaml" />
+  
+  
+  <arg name="camera" default="/raspicam_node"/>
+  <arg name="image" default="image"/>
+  <arg name="transport" default="compressed"/>
+  
+  <!-- Aruco markers configurations-->
+  <arg name="fiducial_len" default="0.20"/>
+  <arg name="dictionary" default="0"/>
+  <arg name="do_pose_estimation" default="true"/>
+  <arg name="ignore_fiducials" default="" />
+  <arg name="fiducial_len_override" default="" />
+        
+  <!-- Play your bag (change the directory of your bag) -->
+  <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(arg bag_location) --rate 1.0"/>
+
+  <!-- Load the node that loads the camera intrinsics from yaml and publishes in the CameraInfo topic-->
+  <node pkg="demo_python" type="yaml_to_camera_info_publisher.py" name="yaml_to_camera_info_publisher" output="screen" >
+     <param name="filename"     value="$(arg calibration_file)" />
+     <param name="camera_topic" value="$(arg camera)" />
+  </node>
+  
+  <!-- Launch the Aruco detection package -->
+  <node pkg="aruco_detect" name="aruco_detect"
+    type="aruco_detect" output="screen" respawn="false">
+    <param name="image_transport" value="$(arg transport)"/>
+    <param name="publish_images" value="true" />
+    <param name="fiducial_len" value="$(arg fiducial_len)"/>
+    <param name="dictionary" value="$(arg dictionary)"/>
+    <param name="do_pose_estimation" value="$(arg do_pose_estimation)"/>
+    <param name="ignore_fiducials" value="$(arg ignore_fiducials)"/>
+    <param name="fiducial_len_override" value="$(arg fiducial_len_override)"/>
+    <remap from="/camera/compressed" to="$(arg camera)/$(arg image)/$(arg transport)"/>
+    <remap from="/camera_info" to="$(arg camera)/camera_info"/>
+  </node>
+
+</launch>
