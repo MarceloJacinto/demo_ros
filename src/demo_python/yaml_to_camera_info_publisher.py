@@ -39,6 +39,7 @@ def yaml_to_CameraInfo(yaml_fname):
         calib_data = yaml.load(file_handle, Loader=Loader)
     # Parse
     camera_info_msg = CameraInfo()
+    camera_info_msg.header.frame_id = "camera"
     camera_info_msg.width = calib_data["image_width"]
     camera_info_msg.height = calib_data["image_height"]
     camera_info_msg.K = calib_data["camera_matrix"]["data"]
